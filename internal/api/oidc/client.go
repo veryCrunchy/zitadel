@@ -795,6 +795,9 @@ func (o *OPStorage) assertRoles(ctx context.Context, userID, applicationID strin
 	if len(requestedRoles) > 0 {
 		for _, requestedRole := range requestedRoles {
 			for _, grant := range grants.UserGrants {
+				if grant.State != domain.UserGrantStateActive {
+					continue
+				}
 				checkGrantedRoles(roles, grant, requestedRole, grant.ProjectID == projectID)
 			}
 		}
@@ -802,6 +805,9 @@ func (o *OPStorage) assertRoles(ctx context.Context, userID, applicationID strin
 	}
 	// no specific roles were requested, so convert any grants into roles
 	for _, grant := range grants.UserGrants {
+		if grant.State != domain.UserGrantStateActive {
+			continue
+		}
 		for _, role := range grant.Roles {
 			roles.Add(grant.ProjectID, role, grant.ResourceOwner, grant.OrgPrimaryDomain, grant.ProjectID == projectID)
 		}

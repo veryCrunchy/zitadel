@@ -6,6 +6,7 @@ import (
 	"github.com/zitadel/zitadel/internal/api/authz"
 	"github.com/zitadel/zitadel/internal/api/grpc/object"
 	"github.com/zitadel/zitadel/internal/api/grpc/user"
+	"github.com/zitadel/zitadel/internal/domain"
 	"github.com/zitadel/zitadel/internal/query"
 	auth_pb "github.com/zitadel/zitadel/pkg/grpc/auth"
 )
@@ -13,6 +14,10 @@ import (
 func ListMyUserGrantsRequestToQuery(ctx context.Context, req *auth_pb.ListMyUserGrantsRequest) (*query.UserGrantsQueries, error) {
 	offset, limit, asc := object.ListQueryToModel(req.Query)
 	userGrantUserID, err := query.NewUserGrantUserIDSearchQuery(authz.GetCtxData(ctx).UserID)
+	if err != nil {
+		return nil, err
+	}
+	userGrantActive, err := query.NewUserGrantStateQuery(domain.UserGrantStateActive)
 	if err != nil {
 		return nil, err
 	}
@@ -24,6 +29,7 @@ func ListMyUserGrantsRequestToQuery(ctx context.Context, req *auth_pb.ListMyUser
 		},
 		Queries: []query.SearchQuery{
 			userGrantUserID,
+			userGrantActive,
 		},
 	}, nil
 }
