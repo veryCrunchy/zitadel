@@ -91,7 +91,7 @@ func (o *OPStorage) ValidateJWTProfileScopes(ctx context.Context, subject string
 		err = oidcError(err)
 		span.EndWithError(err)
 	}()
-	user, err := o.query.GetUserByID(ctx, true, subject)
+	user, err := o.query.GetUserByID(ctx, authz.GetFeatures(ctx).TriggerIntrospectionProjections, subject)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +329,7 @@ func (o *OPStorage) checkOrgScopes(ctx context.Context, user *query.User, scopes
 func (o *OPStorage) setUserinfo(ctx context.Context, userInfo *oidc.UserInfo, userID, applicationID string, scopes []string, roleAudience []string) (err error) {
 	ctx, span := tracing.NewSpan(ctx)
 	defer func() { span.EndWithError(err) }()
-	user, err := o.query.GetUserByID(ctx, true, userID)
+	user, err := o.query.GetUserByID(ctx, authz.GetFeatures(ctx).TriggerIntrospectionProjections, userID)
 	if err != nil {
 		return err
 	}
@@ -664,7 +664,7 @@ func (o *OPStorage) GetPrivateClaimsFromScopes(ctx context.Context, userID, clie
 }
 
 func (o *OPStorage) privateClaimsFlows(ctx context.Context, userID string, userGrants *query.UserGrants, claims map[string]interface{}) (map[string]interface{}, error) {
-	user, err := o.query.GetUserByID(ctx, true, userID)
+	user, err := o.query.GetUserByID(ctx, authz.GetFeatures(ctx).TriggerIntrospectionProjections, userID)
 	if err != nil {
 		return nil, err
 	}
@@ -852,7 +852,7 @@ func (o *OPStorage) assertUserMetaData(ctx context.Context, userID string) (map[
 }
 
 func (o *OPStorage) assertUserResourceOwner(ctx context.Context, userID string) (map[string]string, error) {
-	user, err := o.query.GetUserByID(ctx, true, userID)
+	user, err := o.query.GetUserByID(ctx, authz.GetFeatures(ctx).TriggerIntrospectionProjections, userID)
 	if err != nil {
 		return nil, err
 	}

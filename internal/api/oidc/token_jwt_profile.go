@@ -8,6 +8,7 @@ import (
 	"github.com/zitadel/oidc/v3/pkg/oidc"
 	"github.com/zitadel/oidc/v3/pkg/op"
 
+	"github.com/zitadel/zitadel/internal/api/authz"
 	"github.com/zitadel/zitadel/internal/crypto"
 	"github.com/zitadel/zitadel/internal/domain"
 	"github.com/zitadel/zitadel/internal/query"
@@ -65,7 +66,7 @@ func (s *Server) verifyJWTProfile(ctx context.Context, req *oidc.JWTProfileGrant
 	defer func() { span.EndWithError(err) }()
 
 	checkSubject := func(jwt *oidc.JWTTokenRequest) (err error) {
-		user, err = s.query.GetUserByID(ctx, true, jwt.Subject)
+		user, err = s.query.GetUserByID(ctx, authz.GetFeatures(ctx).TriggerIntrospectionProjections, jwt.Subject)
 		return err
 	}
 	verifier := op.NewJWTProfileVerifier(
