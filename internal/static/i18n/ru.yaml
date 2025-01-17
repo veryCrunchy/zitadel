@@ -519,6 +519,7 @@ Errors:
       NoChallenge: Сеанс без вызова WebAuthN
   Intent:
     IDPMissing: В запросе отсутствует идентификатор IDP
+    MissingNameID: Ответ IDP не содержит NameID
     MissingSingleMappingAttribute: Не содержит атрибут сопоставления или имеет более одного значения
     SuccessURLMissing: В запросе отсутствует URL-адрес успешного выполнения
     FailureURLMissing: В запросе отсутствует URL-адрес ошибки

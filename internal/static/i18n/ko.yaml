@@ -531,6 +531,7 @@ Errors:
     IDPMissing: 요청에서 IDP ID가 누락되었습니다
     IDPInvalid: 요청에 대한 IDP가 유효하지 않습니다
     ResponseInvalid: IDP 응답이 유효하지 않습니다
+    MissingNameID: IDP 응답에 NameID가 없습니다.
     MissingSingleMappingAttribute: IDP 응답에 매핑 속성이 포함되어 있지 않거나 값이 하나 이상 있습니다
     SuccessURLMissing: 요청에 성공 URL이 누락되었습니다
     FailureURLMissing: 요청에 실패 URL이 누락되었습니다

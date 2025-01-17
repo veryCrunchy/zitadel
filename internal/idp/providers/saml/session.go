@@ -75,21 +75,7 @@ func (s *Session) FetchUser(ctx context.Context) (user idp.User, err error) {
 		return nil, zerrors.ThrowInvalidArgument(err, "SAML-nuo0vphhh9", "Errors.Intent.ResponseInvalid")
 	}
 
-	// nameID is required, but at least in ADFS it will not be sent unless explicitly configured
-	if s.Assertion.Subject == nil || s.Assertion.Subject.NameID == nil {
-		return nil, zerrors.ThrowInvalidArgument(err, "SAML-EFG32", "Errors.Intent.ResponseInvalid")
-	}
-	nameID := s.Assertion.Subject.NameID
 	userMapper := NewUser()
-	// use the nameID as default mapping id
-	userMapper.SetID(nameID.Value)
-	if nameID.Format == string(saml.TransientNameIDFormat) {
-		mappingID, err := s.transientMappingID()
-		if err != nil {
-			return nil, err
-		}
-		userMapper.SetID(mappingID)
-	}
 	for _, statement := range s.Assertion.AttributeStatements {
 		for _, attribute := range statement.Attributes {
 			values := make([]string, len(attribute.Values))
@@ -99,7 +85,29 @@ func (s *Session) FetchUser(ctx context.Context) (user idp.User, err error) {
 			userMapper.Attributes[attribute.Name] = values
 		}
 	}
+
+	nameID, err := s.nameID()
+	if err != nil {
+		// return the user, so that it can be passed to the authentication failed action flow
+		return userMapper, err
+	}
+	userMapper.SetID(nameID)
 	return userMapper, nil
+}
+
+func (s *Session) nameID() (string, error) {
+	// nameID is required, but at least in ADFS it will not be sent unless explicitly configured
+	if s.Assertion.Subject == nil || s.Assertion.Subject.NameID == nil {
+		// we can fall back to the transient nameID if it is configured
+		if s.TransientMappingAttributeName == "" {
+			return "", zerrors.ThrowInvalidArgument(nil, "SAML-EFG32", "Errors.Intent.MissingNameID")
+		}
+		return s.transientMappingID()
+	}
+	if s.Assertion.Subject.NameID.Format == string(saml.TransientNameIDFormat) {
+		return s.transientMappingID()
+	}
+	return s.Assertion.Subject.NameID.Value, nil
 }
 
 func (s *Session) transientMappingID() (string, error) {

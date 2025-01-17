@@ -530,6 +530,7 @@ Errors:
     IDPMissing: ID IDP tidak ada dalam permintaan
     IDPInvalid: IDP tidak valid untuk permintaan tersebut
     ResponseInvalid: Tanggapan IDP tidak valid
+    MissingNameID: Respons IDP tidak berisi NameID apa pun
     MissingSingleMappingAttribute: Respons IDP tidak berisi atribut pemetaan atau memiliki lebih dari satu nilai
     SuccessURLMissing: URL sukses tidak ada dalam permintaan
     FailureURLMissing: URL kegagalan tidak ada dalam permintaan

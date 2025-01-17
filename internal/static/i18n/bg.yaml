@@ -548,6 +548,7 @@ Errors:
     IDPMissing: IDP липсва в заявката
     IDPInvalid: IDP невалиден за заявката
     ResponseInvalid: Отговорът на IDP е невалиден
+    MissingNameID: IDP отговорът не съдържа NameID
     MissingSingleMappingAttribute: Не съдържа атрибута за съпоставяне или има повече от една стойност
     SuccessURLMissing: В заявката липсва URL адрес за успех
     FailureURLMissing: В заявката липсва URL адрес за грешка

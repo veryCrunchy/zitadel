@@ -530,6 +530,7 @@ Errors:
     IDPMissing: IDP-ID saknas i begäran
     IDPInvalid: IDP är ogiltig för begäran
     ResponseInvalid: IDP-svar är ogiltigt
+    MissingNameID: IDP-svaret innehåller inget NameID
     MissingSingleMappingAttribute: IDP-svar innehåller inte mappningsattributet eller har mer än ett värde
     SuccessURLMissing: Framgångs-URL saknas i begäran
     FailureURLMissing: Misslyckande-URL saknas i begäran

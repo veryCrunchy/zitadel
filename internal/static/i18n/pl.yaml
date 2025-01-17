@@ -530,6 +530,7 @@ Errors:
     IDPMissing: Brak identyfikatora IDP w żądaniu
     IDPInvalid: IDP nieprawidłowe dla żądania
     ResponseInvalid: Odpowiedź IDP jest nieprawidłowa
+    MissingNameID: Odpowiedź IDP nie zawiera żadnego identyfikatora NameID
     MissingSingleMappingAttribute: Nie zawiera atrybutu mapowania lub ma więcej niż jedną wartość
     SuccessURLMissing: Brak adresu URL powodzenia w żądaniu
     FailureURLMissing: Brak adresu URL niepowodzenia w żądaniu

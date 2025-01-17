@@ -530,6 +530,7 @@ Errors:
     IDPMissing: A kérésből hiányzik az IDP ID
     IDPInvalid: A kéréshez az IDP érvénytelen
     ResponseInvalid: Az IDP válasz érvénytelen
+    MissingNameID: Az IDP válasz nem tartalmaz NameID-t
     MissingSingleMappingAttribute: Az IDP válasza nem tartalmazza a hozzárendelési attribútumot, vagy több értéke van
     SuccessURLMissing: A kérésből hiányzik a sikeres URL
     FailureURLMissing: A kérésből hiányzik a Failure URL

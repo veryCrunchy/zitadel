@@ -519,6 +519,7 @@ Errors:
     IDPMissing: リクエストにIDP IDが含まれていません
     IDPInvalid: リクエストのIDPが無効
     ResponseInvalid: IDPの回答は無効
+    MissingNameID: IDPレスポンスにNameIDが含まれていません
     MissingSingleMappingAttribute: マッピング属性が含まれていない、または複数の値がある
     SuccessURLMissing: リクエストに成功時の URL がありません
     FailureURLMissing: リクエストに失敗の URL がありません
