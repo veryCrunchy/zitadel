@@ -1,6 +1,6 @@
 {
-  "name": "zitadel-e2e",
-  "version": "0.0.0",
+  "name": "@zitadel/e2e",
+  "private": true,
   "scripts": {
     "open": "pnpm exec cypress open",
     "test:e2e": "pnpm exec cypress run",
@@ -16,7 +16,6 @@
     "lint:fix": "prettier --write cypress",
     "clean": "rm -rf .turbo node_modules"
   },
-  "private": true,
   "dependencies": {
     "@types/pg": "^8.11.6",
     "cypress-wait-until": "^3.0.2",
