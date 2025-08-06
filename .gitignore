@@ -97,3 +97,8 @@ load-test/output/*
 
 # PNPM
 .pnpm-store
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+
+# Nx
+.nx
