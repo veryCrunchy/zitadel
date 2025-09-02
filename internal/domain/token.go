@@ -8,6 +8,18 @@ import (
 )
 
 func AddAudScopeToAudience(ctx context.Context, audience, scopes []string) []string {
+	// First, check for client:aud pattern scopes that should replace the entire audience
+	for _, scope := range scopes {
+		if strings.HasSuffix(scope, AudSuffix) && !strings.HasPrefix(scope, ProjectIDScope) {
+			// This is a client:aud pattern, extract the client ID and replace the entire audience
+			clientID := strings.TrimSuffix(scope, AudSuffix)
+			if clientID != "" {
+				return []string{clientID}
+			}
+		}
+	}
+
+	// If no client:aud pattern found, proceed with the original ProjectIDScope logic
 	for _, scope := range scopes {
 		if !(strings.HasPrefix(scope, ProjectIDScope) && strings.HasSuffix(scope, AudSuffix)) {
 			continue
